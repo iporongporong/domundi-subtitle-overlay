@@ -504,4 +504,172 @@ export default function App() {
         </div>
       </div>
 
-      {/* 설정: 재생 위치 점프
+      {/* 설정: 재생 위치 점프 / 싱크 */}
+      {settingsOpen && (
+        <div className="panel" id="settingsPanel">
+          <div className="row" style={{ justifyContent: "space-between", marginBottom: 6 }}>
+            <div className="panel-title" style={{ marginBottom: 0, fontSize: 17 }}>영상과 싱크 맞추기</div>
+            <button className="small ghost" style={{ fontSize: 14 }} onClick={() => setSettingsOpen(false)}>
+              <IconClose style={{ verticalAlign: "-1px", marginRight: 3 }} />닫기
+            </button>
+          </div>
+
+          <div className="section-label" style={{ marginTop: 20 }}>현재 위치로 이동</div>
+          <div className="row" style={{ marginBottom: 8 }}>
+            <input ref={jumpInputRef} type="text" placeholder="예: 00:01:30" style={{ flex: 1 }} />
+            <button className="dark-btn" onClick={() => jumpToTime(jumpInputRef.current.value)}>이동</button>
+          </div>
+
+          <div className="section-label">자막 단위 이동</div>
+          <div className="row" style={{ marginBottom: 8 }}>
+            <button className="small" onClick={jumpToPrevSub}><IconSkipBack style={{ verticalAlign: "-2px", marginRight: 4 }} />이전 자막</button>
+            <button className="small" onClick={jumpToNextSub}>다음 자막<IconSkipFwd style={{ verticalAlign: "-2px", marginLeft: 4 }} /></button>
+          </div>
+
+          <div className="section-label">빠른 조정</div>
+          <div className="offset-controls" style={{ marginBottom: 8 }}>
+            <button className="small" onClick={() => nudge(-5)}>-5초</button>
+            <button className="small" onClick={() => nudge(-1)}>-1초</button>
+            <button className="small" onClick={() => nudge(-0.5)}>-0.5초</button>
+            <button className="small" onClick={() => nudge(0.5)}>+0.5초</button>
+            <button className="small" onClick={() => nudge(1)}>+1초</button>
+            <button className="small" onClick={() => nudge(5)}>+5초</button>
+          </div>
+
+          <div className="section-label">자막 글자 크기</div>
+          <div className="offset-controls" style={{ marginBottom: 8 }}>
+            <button className="small" onClick={() => adjustFontSize(-2)}>－</button>
+            <span style={{ fontSize: 14, color: "var(--text)", fontWeight: 700, minWidth: 36, textAlign: "center" }}>{fontSize}px</span>
+            <button className="small" onClick={() => adjustFontSize(2)}>＋</button>
+            <button className="small ghost" onClick={resetFontSize}>기본값</button>
+          </div>
+
+          <div className="section-label">자막 타이밍 보정</div>
+          <div className="row" style={{ marginBottom: 6 }}>
+            <input type="number" value={offsetSec} step="0.1" style={{ width: 80 }}
+              onChange={(e) => setOffsetSecState(parseFloat(e.target.value) || 0)} />
+            <span style={{ fontSize: 14, color: "var(--text-dim)" }}>초</span>
+          </div>
+          <div className="hint" style={{ marginBottom: 14 }}>
+            자막이 영상보다 늦게 나오면 <b>−(마이너스)</b> 숫자를,<br />
+            자막이 영상보다 빨리 나오면 <b>+(플러스)</b> 숫자를 입력해 주세요.<br /><br />
+            예를 들어 자막이 항상 2초 늦게 나온다면 −2를 입력합니다.<br />
+            입력한 보정값은 이후 자막에도 계속 적용됩니다.
+          </div>
+          <div className="hint" style={{ marginTop: 36, marginBottom: 10 }}>
+            <b style={{ color: "var(--text)" }}>키보드 단축키</b><br />
+            스페이스바: 재생 / 일시정지<br />
+            ← / → : 1초씩 이동<br />
+            Shift + ← / → : 5초씩 이동
+          </div>
+        </div>
+      )}
+
+      {/* 사용 방법 안내 */}
+      <div className="panel">
+        <div className="row" style={{ justifyContent: "space-between", cursor: "pointer" }} onClick={() => setGuideOpen((v) => !v)}>
+          <div className="panel-title" style={{ marginBottom: 0, fontSize: guideOpen ? 17 : 13, transition: "font-size 0.15s" }}>사용 방법 안내</div>
+          <IconChevron style={{ transition: "transform 0.2s", transform: guideOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
+        </div>
+        {guideOpen && (
+          <div className="hint" style={{ marginTop: 20 }}>
+            <div style={{ marginBottom: 18 }}>
+              <div style={{ fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>1. 컴팩트 모드 사용</div>
+              「컴팩트 모드」 버튼을 누르면 창이 옆으로 길고 얇게 변경되며, 자막만 표시됩니다.<br />
+              이 창을 영상의 자막이 나오는 위치에 맞춰 올려놓고 사용해 주세요.<br />
+              다시 전체 화면으로 보려면 화면 오른쪽 위에 있는 「전체 보기」 버튼을 눌러주세요.
+            </div>
+            <div>
+              <div style={{ fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>2. 영상과 자막 싱크 맞추기</div>
+              영상 재생을 시작할 때 이 페이지의 「재생」 버튼도 함께 눌러주세요.<br />
+              자막이 영상보다 빠르거나 느릴 경우 「자막 싱크」의 조정 버튼을 눌러 영상과 자막의 타이밍을 맞춰주세요.
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 관리자 모달 */}
+      {adminOpen && (
+        <div
+          style={{ display: "flex", position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 100, alignItems: "center", justifyContent: "center", padding: 16 }}
+          onClick={(e) => { if (e.target === e.currentTarget) toggleAdmin(); }}
+        >
+          <div className="panel" style={{ maxWidth: 420, width: "100%", maxHeight: "85vh", overflowY: "auto", boxShadow: "0 10px 30px rgba(0,0,0,0.3)", position: "relative" }} onClick={(e) => e.stopPropagation()}>
+            <button className="icon-only" onClick={toggleAdmin} title="닫기" style={{ position: "absolute", top: 12, right: 12, background: "transparent", color: "var(--text-dim)" }}>
+              <IconClose size={16} />
+            </button>
+
+            {modalView === "locked" && (
+              <div style={{ paddingRight: 24 }}>
+                <div style={{ fontWeight: 800, fontSize: 19, marginBottom: 8 }}>관리자만 편집할 수 있어요</div>
+                <div className="hint" style={{ marginBottom: 16 }}>자막을 등록·수정하려면 관리자 PIN이 필요해요.</div>
+                <input
+                  type="text"
+                  value={pinInput}
+                  onChange={(e) => setPinInput(e.target.value)}
+                  placeholder="PIN 입력"
+                  inputMode="numeric"
+                  style={{ width: "100%", boxSizing: "border-box", marginBottom: 10 }}
+                  onKeyDown={(e) => { if (e.key === "Enter") submitPin(); }}
+                />
+                <button className="dark-btn" style={{ width: "100%", height: 44, fontSize: 15 }} onClick={submitPin}>편집 모드로 들어가기</button>
+                {(pinMsg || pinHint) && (
+                  <div className="hint" style={{ marginTop: 10, color: pinMsg ? "var(--danger)" : "var(--text-dim)" }}>{pinMsg || pinHint}</div>
+                )}
+              </div>
+            )}
+
+            {modalView === "unlocked" && (
+              <div style={{ paddingRight: 24 }}>
+                <div style={{ fontWeight: 800, fontSize: 18, marginBottom: 14 }}>관리자 편집</div>
+
+                <div className="section-label" style={{ marginTop: 0 }}>편집 중인 작품 / 회차</div>
+                <div className="row" style={{ marginBottom: 10 }}>
+                  <select value={currentWork} onChange={onWorkChange} style={{ flex: 1, minWidth: 120 }}>
+                    {mergedWorkKeys().map((k) => (
+                      <option key={k} value={k}>{workLabel(k)}</option>
+                    ))}
+                  </select>
+                  <select value={currentEp} onChange={onEpChange} style={{ width: 90 }}>
+                    {episodesKeys(currentWork).map((ep) => (
+                      <option key={ep} value={ep}>{ep}화</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="section-label">새 작품 추가</div>
+                <div className="row" style={{ marginBottom: 10 }}>
+                  <input type="text" value={newWorkName} onChange={(e) => setNewWorkName(e.target.value)} placeholder="예: 미스터틴" style={{ flex: 1 }} />
+                  <button className="dark-btn" onClick={addNewWork}>추가</button>
+                </div>
+
+                <div className="section-label">새 회차 추가 (현재 작품)</div>
+                <div className="row" style={{ marginBottom: 10 }}>
+                  <input type="number" value={newEpNum} onChange={(e) => setNewEpNum(e.target.value)} placeholder="예: 13" style={{ width: 100 }} />
+                  <button className="dark-btn" onClick={addNewEpisode}>추가</button>
+                </div>
+
+                <div className="section-label">자막 데이터 (현재 회차)</div>
+                <textarea
+                  value={subtitleInput}
+                  onChange={(e) => setSubtitleInput(e.target.value)}
+                  placeholder={"예시)\n1:10 안녕하세요\n1:15 오랜만이에요\n2:03 진짜요?"}
+                />
+                <div className="hint">한 줄에 "시간 텍스트" 형식. 시간은 분:초(1:10), 시:분:초(1:02:30), 초 단위 숫자(70) 모두 가능합니다.</div>
+                <div className="row" style={{ marginTop: 10 }}>
+                  <button className="dark-btn" onClick={saveSubtitles}>저장 및 적용</button>
+                  <button className="ghost" onClick={lockAdmin}><IconLockClosed style={{ verticalAlign: "-2px", marginRight: 4 }} />잠그기</button>
+                </div>
+                <div style={{ marginTop: 6 }}><span style={{ fontSize: 12, color: "var(--text-dim)" }}>{saveStatus}</span></div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <footer style={{ textAlign: "center", fontSize: 11, color: "var(--text-dim)", padding: "10px 0 4px" }}>
+        Domundi 시리즈 한글 자막 · 비공식 팬 제작 · 자막 보정값은 이 브라우저에만 저장됩니다
+      </footer>
+    </div>
+  );
+}
