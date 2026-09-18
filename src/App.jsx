@@ -667,9 +667,6 @@ export default function App() {
         </div>
       )}
 
-      <footer style={{ textAlign: "center", fontSize: 11, color: "var(--text-dim)", padding: "10px 0 4px" }}>
-        Domundi 시리즈 한글 자막 · 비공식 팬 제작 · 자막 보정값은 이 브라우저에만 저장됩니다
-      </footer>
     </div>
   );
 }
