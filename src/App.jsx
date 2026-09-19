@@ -547,7 +547,12 @@ export default function App() {
 
           <div className="section-label">자막 타이밍 보정</div>
           <div className="row" style={{ marginBottom: 6 }}>
-            <input type="text" inputMode="decimal" value={offsetInputStr} style={{ width: 80 }}
+            <button className="small" onClick={() => {
+              const next = Math.round((offsetSec - 0.5) * 10) / 10;
+              setOffsetSecState(next);
+              setOffsetInputStr(String(next));
+            }}>－</button>
+            <input type="text" inputMode="decimal" value={offsetInputStr} style={{ width: 70, textAlign: "center" }}
               onChange={(e) => {
                 const raw = e.target.value;
                 setOffsetInputStr(raw);
@@ -560,11 +565,17 @@ export default function App() {
                   setOffsetInputStr(String(offsetSec));
                 }
               }} />
+            <button className="small" onClick={() => {
+              const next = Math.round((offsetSec + 0.5) * 10) / 10;
+              setOffsetSecState(next);
+              setOffsetInputStr(String(next));
+            }}>＋</button>
             <span style={{ fontSize: 14, color: "var(--text-dim)" }}>초</span>
           </div>
           <div className="hint" style={{ marginBottom: 14 }}>
-            자막이 영상보다 늦게 나오면 <b>−(마이너스)</b> 숫자를 입력해 주세요 (예: −2).<br />
-            자막이 영상보다 빨리 나오면 <b>양수</b> 숫자를 입력해 주세요 — <b>+ 기호 없이 숫자만</b> 입력하면 돼요 (예: 2).<br /><br />
+            자막이 영상보다 늦게 나오면 <b>－</b> 버튼을,<br />
+            자막이 영상보다 빨리 나오면 <b>＋</b> 버튼을 눌러 조정해 주세요 (0.5초씩 이동해요).<br />
+            숫자를 직접 입력하셔도 돼요 — 늦으면 마이너스(예: −2), 빠르면 양수(기호 없이 숫자만, 예: 2).<br /><br />
             예를 들어 자막이 항상 2초 늦게 나온다면 −2를 입력합니다.<br />
             입력한 보정값은 이후 자막에도 계속 적용됩니다.
           </div>
