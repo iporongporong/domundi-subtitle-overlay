@@ -37,6 +37,7 @@ export default function App() {
     const s = safeGet("subOverlay_offset");
     return s !== null ? parseFloat(s) || 0 : 0;
   });
+  const [offsetInputStr, setOffsetInputStr] = useState(() => String(offsetSec));
   const [fontSize, setFontSizeState] = useState(() => {
     const s = safeGet("subOverlay_fontsize");
     return s !== null ? parseInt(s, 10) : FONT_SIZE_DEFAULT;
@@ -546,13 +547,24 @@ export default function App() {
 
           <div className="section-label">자막 타이밍 보정</div>
           <div className="row" style={{ marginBottom: 6 }}>
-            <input type="number" value={offsetSec} step="0.1" style={{ width: 80 }}
-              onChange={(e) => setOffsetSecState(parseFloat(e.target.value) || 0)} />
+            <input type="text" inputMode="decimal" value={offsetInputStr} style={{ width: 80 }}
+              onChange={(e) => {
+                const raw = e.target.value;
+                setOffsetInputStr(raw);
+                if (raw === "" || raw === "-") return;
+                const parsed = parseFloat(raw);
+                if (!isNaN(parsed)) setOffsetSecState(parsed);
+              }}
+              onBlur={() => {
+                if (offsetInputStr === "" || offsetInputStr === "-" || isNaN(parseFloat(offsetInputStr))) {
+                  setOffsetInputStr(String(offsetSec));
+                }
+              }} />
             <span style={{ fontSize: 14, color: "var(--text-dim)" }}>초</span>
           </div>
           <div className="hint" style={{ marginBottom: 14 }}>
-            자막이 영상보다 늦게 나오면 <b>−(마이너스)</b> 숫자를,<br />
-            자막이 영상보다 빨리 나오면 <b>+(플러스)</b> 숫자를 입력해 주세요.<br /><br />
+            자막이 영상보다 늦게 나오면 <b>−(마이너스)</b> 숫자를 입력해 주세요 (예: −2).<br />
+            자막이 영상보다 빨리 나오면 <b>양수</b> 숫자를 입력해 주세요 — <b>+ 기호 없이 숫자만</b> 입력하면 돼요 (예: 2).<br /><br />
             예를 들어 자막이 항상 2초 늦게 나온다면 −2를 입력합니다.<br />
             입력한 보정값은 이후 자막에도 계속 적용됩니다.
           </div>
