@@ -409,7 +409,7 @@ export default function App() {
   if (!libraryLoaded || currentWork === null) {
     return (
       <div className="wrap">
-        <div className="hint" style={{ padding: 24, textAlign: "center" }}>불러오는 중...</div>
+        <div className="hint" style={{ padding: 24, textAlign: "center" }}>도문디 시리즈 한글 자막 쉽게 보기</div>
       </div>
     );
   }
