@@ -366,8 +366,8 @@
   .mini-bar button:hover { background: var(--accent); color: #fff; }
   .mini-jump-input {
     width: 84px;
-    height: 26px !important;
-    line-height: 26px !important;
+    height: 36px !important;
+    line-height: 36px !important;
     margin-left: 6px;
     border: none;
     border-radius: 8px !important;
@@ -384,8 +384,8 @@
     background: var(--black-pill) !important;
     color: #fff !important;
     font-weight: 700;
-    height: 26px !important;
-    line-height: 26px !important;
+    height: 36px !important;
+    line-height: 36px !important;
     border-radius: 8px !important;
     padding: 0 12px !important;
   }
