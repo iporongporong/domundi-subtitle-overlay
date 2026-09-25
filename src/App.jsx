@@ -493,7 +493,7 @@ export default function App() {
 
         <div style={{ padding: "10px 14px" }} className="compact-hide">
           <div className="row">
-            <button className="primary" onClick={togglePlay} style={{ minWidth: 106, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+            <button className="primary" onClick={togglePlay} style={{ minWidth: 106, height: 36, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
               {isPlaying ? <IconPause style={{ verticalAlign: "-2px", marginRight: 5 }} /> : <IconPlay style={{ verticalAlign: "-2px", marginRight: 5 }} />}
               <span>{isPlaying ? "일시정지" : "재생"}</span>
             </button>
