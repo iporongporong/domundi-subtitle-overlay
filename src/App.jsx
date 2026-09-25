@@ -62,6 +62,7 @@ export default function App() {
 
   const jumpInputRef = useRef(null);
   const miniJumpInputRef = useRef(null);
+  const desktopJumpInputRef = useRef(null);
 
   // ================= Firebase: 라이브러리 실시간 구독 =================
   useEffect(() => {
@@ -500,6 +501,10 @@ export default function App() {
               <IconRewind style={{ verticalAlign: "-2px", marginRight: 4 }} />처음으로
             </button>
             <span className="clock">{clockText}</span>
+            <span style={{ flex: 1 }}></span>
+            <input ref={desktopJumpInputRef} type="text" className="mini-jump-input" placeholder="00:00:00"
+              onKeyDown={(e) => { if (e.key === "Enter") { jumpToTime(desktopJumpInputRef.current.value); desktopJumpInputRef.current.value = ""; desktopJumpInputRef.current.blur(); } }} />
+            <button className="mini-go-btn" onClick={() => { jumpToTime(desktopJumpInputRef.current.value); desktopJumpInputRef.current.value = ""; }} title="입력한 시간으로 이동">이동</button>
           </div>
           <button className="primary compact-cta" onClick={() => { setSettingsOpen(false); setCompact(true); }}>
             <IconCompact style={{ verticalAlign: "-3px", marginRight: 6 }} />컴팩트 모드로 보기
