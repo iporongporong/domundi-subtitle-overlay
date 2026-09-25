@@ -453,9 +453,6 @@ export default function App() {
                 </option>
               ))}
             </select>
-            <button className="icon-square" onClick={resetToDefault} title="선택 초기화">
-              <IconClose size={14} />
-            </button>
           </div>
         </div>
       )}
