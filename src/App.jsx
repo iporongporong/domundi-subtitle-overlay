@@ -57,6 +57,7 @@ export default function App() {
   const [subtitleInput, setSubtitleInput] = useState("");
   const [saveStatus, setSaveStatus] = useState("");
   const [newWorkName, setNewWorkName] = useState("");
+  const [renameWorkInput, setRenameWorkInput] = useState("");
   const [newEpNum, setNewEpNum] = useState("");
 
   const jumpInputRef = useRef(null);
@@ -123,6 +124,7 @@ export default function App() {
   useEffect(() => {
     if (adminOpen && modalView === "unlocked") {
       setSubtitleInput(library[currentWork]?.episodes?.[currentEp] || "");
+      setRenameWorkInput(library[currentWork]?.label || currentWork || "");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentWork, currentEp, adminOpen, modalView]);
@@ -331,6 +333,12 @@ export default function App() {
       `저장됨 (${workLabel(currentWork)} ${currentEp}화) · ${result.length}개 자막` +
         (errors ? ` (인식 실패 ${errors}줄)` : "")
     );
+  }
+
+  async function renameWork() {
+    const label = renameWorkInput.trim();
+    if (!label || !currentWork) return;
+    await set(ref(db, `subtitleOverlay/library/${currentWork}/label`), label);
   }
 
   async function addNewWork() {
@@ -658,6 +666,12 @@ export default function App() {
                       <option key={ep} value={ep}>{ep}화</option>
                     ))}
                   </select>
+                </div>
+
+                <div className="section-label">작품명 수정 (현재 작품)</div>
+                <div className="row" style={{ marginBottom: 10 }}>
+                  <input type="text" value={renameWorkInput} onChange={(e) => setRenameWorkInput(e.target.value)} placeholder="작품명" style={{ flex: 1 }} />
+                  <button className="dark-btn" onClick={renameWork}>수정</button>
                 </div>
 
                 <div className="section-label">새 작품 추가</div>
