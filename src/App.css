@@ -351,17 +351,17 @@
     background: rgba(0,0,0,0.06);
     color: #15151a;
     border: none;
-    border-radius: 999px;
-    height: 26px;
-    padding: 0 10px;
-    font-size: 12px;
+    border-radius: 8px;
+    height: 36px;
+    padding: 0 14px;
+    font-size: 13px;
     font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 6px;
   }
-  .mini-bar button.icon-only { width: 26px; padding: 0; }
+  .mini-bar button.icon-only { width: 36px; padding: 0; }
   .mini-bar button:hover { background: var(--accent); color: #fff; }
   .mini-jump-input {
     width: 84px;
