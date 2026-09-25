@@ -370,7 +370,7 @@
     line-height: 26px !important;
     margin-left: 6px;
     border: none;
-    border-radius: 999px !important;
+    border-radius: 8px !important;
     background: rgba(0,0,0,0.06);
     color: #15151a;
     font-size: 13px;
@@ -386,7 +386,7 @@
     font-weight: 700;
     height: 26px !important;
     line-height: 26px !important;
-    border-radius: 999px !important;
+    border-radius: 8px !important;
     padding: 0 12px !important;
   }
   .mini-go-btn:hover { background: var(--accent) !important; color: #fff !important; }
