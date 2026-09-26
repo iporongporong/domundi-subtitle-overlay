@@ -452,7 +452,7 @@ export default function App() {
       </a>
 
       {hasAnyWork && (
-        <div className="panel compact-hide" style={{ padding: "10px 14px" }}>
+        <div className="panel compact-hide" style={{ padding: "6px 8px" }}>
           <div className="row">
             <select value={currentWork} onChange={onWorkChange} style={{ flex: 1, minWidth: 140 }}>
               {visibleWorkKeys().map((k) => (
@@ -503,7 +503,7 @@ export default function App() {
           </div>
         </div>
 
-        <div style={{ padding: "10px 14px" }} className="compact-hide">
+        <div style={{ padding: "6px 8px" }} className="compact-hide">
           <div className="row">
             <button className="primary" onClick={togglePlay} style={{ minWidth: 106, height: 36, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
               {isPlaying ? <IconPause style={{ verticalAlign: "-2px", marginRight: 5 }} /> : <IconPlay style={{ verticalAlign: "-2px", marginRight: 5 }} />}
