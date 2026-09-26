@@ -660,7 +660,7 @@ export default function App() {
       </div>
 
       {/* 유의사항 안내 */}
-      <div className="panel" style={{ paddingTop: 10, paddingBottom: 10 }}>
+      <div className="panel" style={{ paddingTop: 10, paddingBottom: 10, marginBottom: 16 }}>
         <div className="row" style={{ justifyContent: "space-between", cursor: "pointer" }} onClick={() => setNoticeOpen((v) => !v)}>
           <div className="panel-title" style={{ marginBottom: 0, fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}>
             <IconInfo size={16} />
