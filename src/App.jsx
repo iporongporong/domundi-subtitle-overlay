@@ -5,7 +5,7 @@ import { parseTimeToken, parseSubtitleText, formatClock, slugifyWorkName, safeGe
 import {
   IconPlay, IconPause, IconRewind, IconGear, IconExpand, IconCompact,
   IconClose, IconLock, IconLockClosed, IconChevron, IconSkipBack, IconSkipFwd,
-  IconCC, IconInfo,
+  IconCC, IconInfo, IconExternalLink,
 } from "./Icons";
 
 const FONT_SIZE_DEFAULT = 26;
@@ -448,7 +448,7 @@ export default function App() {
           }
         }}>
         <span>DMD Late Check-In 블로그 바로가기</span>
-        <IconExpand size={18} />
+        <IconExternalLink size={18} />
       </a>
 
       {hasAnyWork && (
@@ -677,7 +677,7 @@ export default function App() {
             <div style={{ marginBottom: 10 }}>5. 자막은 준비되는 대로 회차별로 순차 업로드되며, 업로드 일정은 사정에 따라 달라질 수 있습니다.</div>
             <div style={{ marginBottom: 10 }}>6. 자막 데이터 및 번역 내용의 무단 복사, 자막을 입힌 영상의 캡처·녹화 후 재배포, 2차 가공 및 상업적 이용을 금지합니다. 공유를 원하실 경우 페이지 링크로 공유해 주세요.</div>
             <div style={{ marginBottom: 10 }}>7. 서비스 개선을 위해 익명화된 방문 통계(Google Analytics)를 수집하고 있으며, 개인을 식별할 수 있는 정보는 수집하지 않습니다.</div>
-            <div>8. 오역·오류 제보 및 문의는 <a href="https://blog.naver.com/boyslog" target="_blank" rel="noopener noreferrer" style={{ color: "#3b6fd6", fontWeight: 400, textDecoration: "underline" }}>블로그</a>를 통해 남겨 주세요.</div>
+            <div style={{ marginBottom: 10 }}>8. 오역·오류 제보 및 문의는 <a href="https://blog.naver.com/boyslog" target="_blank" rel="noopener noreferrer" style={{ color: "#3b6fd6", fontWeight: 400, textDecoration: "underline" }}>블로그</a>를 통해 남겨 주세요.</div>
           </div>
         )}
       </div>
