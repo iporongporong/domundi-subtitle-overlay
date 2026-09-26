@@ -431,7 +431,7 @@ export default function App() {
     <div className="wrap">
       <h1 style={{ justifyContent: "space-between" }}>
         <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-          <IconCC size={21} style={{ marginTop: -1 }} />
+          <IconCC size={20} style={{ marginTop: 2 }} />
           <span>Domundi 시리즈 한글 자막</span>
         </span>
         <button className="header-icon-btn" onClick={toggleAdmin} title="관리자">
