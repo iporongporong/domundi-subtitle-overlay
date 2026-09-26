@@ -5,6 +5,7 @@ import { parseTimeToken, parseSubtitleText, formatClock, slugifyWorkName, safeGe
 import {
   IconPlay, IconPause, IconRewind, IconGear, IconExpand, IconCompact,
   IconClose, IconLock, IconLockClosed, IconChevron, IconSkipBack, IconSkipFwd,
+  IconCC, IconInfo,
 } from "./Icons";
 
 const FONT_SIZE_DEFAULT = 26;
@@ -48,6 +49,7 @@ export default function App() {
   // ---- UI 토글 ----
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
+  const [noticeOpen, setNoticeOpen] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
   const [adminUnlocked, setAdminUnlocked] = useState(false);
   const [modalView, setModalView] = useState("locked"); // 'locked' | 'unlocked'
@@ -428,7 +430,10 @@ export default function App() {
   return (
     <div className="wrap">
       <h1 style={{ justifyContent: "space-between" }}>
-        <span>Domundi 시리즈 한글 자막</span>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 8, lineHeight: 1 }}>
+          <IconCC size={24} />
+          Domundi 시리즈 한글 자막
+        </span>
         <button className="header-icon-btn" onClick={toggleAdmin} title="관리자">
           {adminUnlocked ? <IconLock size={22} /> : <IconLockClosed size={22} />}
         </button>
@@ -606,24 +611,73 @@ export default function App() {
       )}
 
       {/* 사용 방법 안내 */}
-      <div className="panel">
+      <div className="panel" style={{ paddingTop: 10, paddingBottom: 10, marginBottom: -6 }}>
         <div className="row" style={{ justifyContent: "space-between", cursor: "pointer" }} onClick={() => setGuideOpen((v) => !v)}>
-          <div className="panel-title" style={{ marginBottom: 0, fontSize: guideOpen ? 17 : 13, transition: "font-size 0.15s" }}>사용 방법 안내</div>
+          <div className="panel-title" style={{ marginBottom: 0, fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}>
+            <IconInfo size={16} />
+            사용 방법 안내
+          </div>
           <IconChevron style={{ transition: "transform 0.2s", transform: guideOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
         </div>
         {guideOpen && (
-          <div className="hint" style={{ marginTop: 20 }}>
-            <div style={{ marginBottom: 18 }}>
-              <div style={{ fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>1. 컴팩트 모드 사용</div>
+          <div className="hint" style={{ marginTop: 20, fontSize: 12, lineHeight: 1.6, color: "#808086" }}>
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>1. 작품 및 회차 선택</div>
+              시청할 작품과 회차를 선택해 주세요.<br />
+              자막이 업로드된 회차만 목록에 표시됩니다.
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>2. 영상 준비</div>
+              공식 플랫폼에서 시청할 영상을 별도의 창이나 탭으로 열어주세요.<br />
+              자막 창을 영상 위에 겹쳐 사용하는 방식이라 PC 환경에서 이용을 권장합니다.
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>3. 앱으로 설치하기 (권장)</div>
+              크롬이나 엣지 브라우저 주소창 오른쪽의 설치 아이콘을 누르면 이 페이지를 앱처럼 설치할 수 있습니다.<br />
+              설치 아이콘이 보이지 않는다면 브라우저 오른쪽 위 ⋮ 메뉴에서 「Domundi 시리즈 한글 자막 설치」를 선택해 주세요.<br />
+              설치하면 주소창과 탭이 없는 별도의 창으로 열려, 영상 위에 자막 창을 겹쳐 놓기 훨씬 편해집니다.<br />
+              설치 후에는 바탕화면이나 시작 메뉴의 아이콘으로 바로 실행할 수 있습니다.
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>4. 컴팩트 모드 사용</div>
               「컴팩트 모드」 버튼을 누르면 창이 옆으로 길고 얇게 변경되며, 자막만 표시됩니다.<br />
               이 창을 영상의 자막이 나오는 위치에 맞춰 올려놓고 사용해 주세요.<br />
+              창의 크기와 위치는 영상 화면에 맞게 자유롭게 조절할 수 있습니다.<br />
               다시 전체 화면으로 보려면 화면 오른쪽 위에 있는 「전체 보기」 버튼을 눌러주세요.
             </div>
-            <div>
-              <div style={{ fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>2. 영상과 자막 싱크 맞추기</div>
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>5. 영상과 자막 싱크 맞추기</div>
               영상 재생을 시작할 때 이 페이지의 「재생」 버튼도 함께 눌러주세요.<br />
-              자막이 영상보다 빠르거나 느릴 경우 「자막 싱크」의 조정 버튼을 눌러 영상과 자막의 타이밍을 맞춰주세요.
+              자막이 영상보다 빠르거나 느릴 경우 「자막 싱크」의 조정 버튼을 눌러 영상과 자막의 타이밍을 맞춰주세요.<br />
+              영상을 일시정지하거나 광고가 재생될 때는 자막도 함께 멈춰야 싱크가 유지됩니다.<br />
+              중간에 싱크가 크게 어긋났다면, 영상의 대사가 시작되는 시점에 맞춰 다시 조정해 주세요.
             </div>
+            <div>
+              더 자세한 이용 방법은 <a href="https://blog.naver.com/boyslog/224416861900" target="_blank" rel="noopener noreferrer" style={{ color: "#3b6fd6", fontWeight: 400, textDecoration: "underline" }}>블로그</a>에서 확인해 주세요.
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 유의사항 안내 */}
+      <div className="panel" style={{ paddingTop: 10, paddingBottom: 10 }}>
+        <div className="row" style={{ justifyContent: "space-between", cursor: "pointer" }} onClick={() => setNoticeOpen((v) => !v)}>
+          <div className="panel-title" style={{ marginBottom: 0, fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}>
+            <IconInfo size={16} />
+            유의사항 안내
+          </div>
+          <IconChevron style={{ transition: "transform 0.2s", transform: noticeOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
+        </div>
+        {noticeOpen && (
+          <div className="hint" style={{ marginTop: 20, fontSize: 12, lineHeight: 1.6, color: "#808086" }}>
+            <div style={{ marginBottom: 10 }}>1. 본 페이지는 개인적으로 제작·운영하는 비공식 한글 자막 페이지입니다.</div>
+            <div style={{ marginBottom: 10 }}>2. 본 페이지는 영상을 제공하지 않으며, 자막만 제공합니다. 영상은 공식 플랫폼을 통해 시청해 주세요.</div>
+            <div style={{ marginBottom: 10 }}>3. 자막은 개인 번역으로, 원문의 의미나 뉘앙스와 다소 차이가 있을 수 있습니다.</div>
+            <div style={{ marginBottom: 10 }}>4. 재생 환경이나 광고 등에 따라 자막 싱크가 어긋날 수 있으니, 필요 시 싱크 조절 기능을 이용해 주세요.</div>
+            <div style={{ marginBottom: 10 }}>5. 자막은 준비되는 대로 회차별로 순차 업로드되며, 업로드 일정은 사정에 따라 달라질 수 있습니다.</div>
+            <div style={{ marginBottom: 10 }}>6. 자막 데이터 및 번역 내용의 무단 복사, 자막을 입힌 영상의 캡처·녹화 후 재배포, 2차 가공 및 상업적 이용을 금지합니다. 공유를 원하실 경우 페이지 링크로 공유해 주세요.</div>
+            <div style={{ marginBottom: 10 }}>7. 서비스 개선을 위해 익명화된 방문 통계(Google Analytics)를 수집하고 있으며, 개인을 식별할 수 있는 정보는 수집하지 않습니다.</div>
+            <div>8. 오역·오류 제보 및 문의는 <a href="https://blog.naver.com/boyslog" target="_blank" rel="noopener noreferrer" style={{ color: "#3b6fd6", fontWeight: 400, textDecoration: "underline" }}>블로그</a>를 통해 남겨 주세요.</div>
           </div>
         )}
       </div>
