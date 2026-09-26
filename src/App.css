@@ -240,14 +240,14 @@
     overflow: hidden;
     border: 1px solid var(--panel-border);
     position: relative;
-    margin: 14px;
+    margin: 8px;
   }
   .overlay-stage {
     min-height: 140px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    padding: 10px 14px;
+    padding: 6px 8px;
     position: relative;
   }
   .subtitle-text {
