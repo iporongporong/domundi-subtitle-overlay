@@ -434,7 +434,14 @@ export default function App() {
         </button>
       </h1>
 
-      <a className="blog-banner" href={BLOG_URL} target="_blank" rel="noopener noreferrer">
+      <a className="blog-banner" href={BLOG_URL} target="_blank" rel="noopener noreferrer"
+        onClick={() => {
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "blog_banner_click", {
+              link_url: BLOG_URL,
+            });
+          }
+        }}>
         <span>DMD Late Check-In 블로그 바로가기</span>
         <IconExpand size={18} />
       </a>
