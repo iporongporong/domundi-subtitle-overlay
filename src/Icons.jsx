@@ -89,6 +89,21 @@ export const IconSkipFwd = (p) => (
   </svg>
 );
 
+export const IconCC = (p) => (
+  <svg width={p.size || 24} height={p.size || 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, display: "block", ...(p.style || {}) }}>
+    <rect x="2.5" y="4.5" width="19" height="15" rx="3" />
+    <text x="12" y="15" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="9" fontWeight="800" fill="currentColor" stroke="none">CC</text>
+  </svg>
+);
+
+export const IconInfo = (p) => (
+  <svg width={p.size || 16} height={p.size || 16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={p.style}>
+    <circle cx="12" cy="12" r="10" />
+    <line x1="12" y1="11" x2="12" y2="16" />
+    <circle cx="12" cy="7.5" r="0.5" fill="currentColor" />
+  </svg>
+);
+
 export const IconArrowRight = (p) => (
   <svg width={p.size || 14} height={p.size || 14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" style={p.style}>
     <line x1="5" y1="12" x2="19" y2="12" />
