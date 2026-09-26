@@ -430,9 +430,9 @@ export default function App() {
   return (
     <div className="wrap">
       <h1 style={{ justifyContent: "space-between" }}>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 8, lineHeight: 1 }}>
-          <IconCC size={24} />
-          Domundi 시리즈 한글 자막
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+          <IconCC size={21} style={{ marginTop: -1 }} />
+          <span>Domundi 시리즈 한글 자막</span>
         </span>
         <button className="header-icon-btn" onClick={toggleAdmin} title="관리자">
           {adminUnlocked ? <IconLock size={22} /> : <IconLockClosed size={22} />}
